@@ -13,10 +13,8 @@ To properly lerp with this tool you will need to declare 4 variables:
 
 Next you will need to write a method that will create a lerp request:
 
-    private void SetThrustActivityLerpRequest (float output)
+    private void SetLerpMoveRequest ()
 	{
-		_setCurrentThrust = output;
-
 		// Setup a Lerp Request
 		_shouldLerp = true;
 		if (string.IsNullOrEmpty (_lerpRequestGuid)) {
@@ -30,7 +28,7 @@ Next you will need to write a method that will create a lerp request:
 
 Then you will need to write a method that will burn the lerp down and set the animations:
 
-    private void LerpCurrentThrustAnimation ()
+    private void LerpMoveAnimation ()
 	{
 		float perc = TBLerp.LerpSmootherStep (_lerpRequestGuid);
 		if (perc == 1f) {
@@ -38,9 +36,7 @@ Then you will need to write a method that will burn the lerp down and set the an
 			TBLerp.RemoveLerpRequestor (_lerpRequestGuid);
 		}
 
-		_currentThrust = Mathf.Lerp (_currentThrust, _setCurrentThrust, perc);
-		_animator.SetFloat ("Acceleration", _currentThrust/100);
-		AkSoundEngine.SetRTPCValue("ThrustPower", _currentThrust);
+		this.transform.localPosition = Vector3.Lerp (_startPos, _endPos, perc);
 	}
 
 Finally you will need to add a call to the burn down method from the update loop:
