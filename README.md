@@ -1,4 +1,5 @@
 ### NYSULerp.cs tool for lerping
+This utility was developed for my game Atomic Space Command. Check it out: http://atomicspacecommand.net
 
 ### Usage
 
